@@ -1,3 +1,8 @@
+import frota.ContraTorpedeiro;
+import frota.Navio;
+import frota.Patrulheiro;
+import frota.PortaAvioes;
+import frota.Submarino;
 import java.util.Scanner;
 
 public class Main {

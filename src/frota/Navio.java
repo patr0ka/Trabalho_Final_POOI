@@ -1,10 +1,11 @@
+package frota;
 public class Navio {
     private int vida;
     private final String nome;
 
-    public Navio(String Nome, int vida){
-        this.nome = getNome();
-        this.vida = getVida();
+    public Navio(String nome, int vida){
+        this.nome = nome;
+        this.vida = vida;
     }
 
     public String getNome() {
