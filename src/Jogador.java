@@ -21,5 +21,4 @@ public class Jogador{
     public void setPontos(int pontos1){
         pontos = pontos1;
     }
-
-}
+}/*. */
