@@ -1,14 +1,13 @@
 package mapas;
 public abstract class Tabuleiro<T> {
-    private int linha , coluna;
-    private T[][] tabuleiro;
+    private final  int linha = 10, coluna = 10;
+    private final T[][] tabuleiro;
 
     @SuppressWarnings("unchecked") /*Fala para o compilador ignorar o aviso gerado pela declaração do array genérico */
     public Tabuleiro(Class<T> tipo) {
-        this.linha = 10;
-        this.coluna = 10;
         this.tabuleiro = (T[][]) java.lang.reflect.Array.newInstance(tipo, linha, coluna); /*Devido as limitações do java é necessário usar essa notação para criar um array generico */
     }
+   
 
     public abstract  void imprimeTabluleiro();
 
@@ -27,4 +26,4 @@ public abstract class Tabuleiro<T> {
     public int getColuna() {
         return coluna;
     }
-}/*. */
+}

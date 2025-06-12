@@ -1,6 +1,6 @@
 package mapas;
 
-public class TabuleiroDoJogador extends Tabuleiro{
+public class TabuleiroDoJogador extends Tabuleiro<String>{
     public TabuleiroDoJogador() {
         super(String.class);
 
@@ -21,4 +21,3 @@ public class TabuleiroDoJogador extends Tabuleiro{
         }
     }
 }
-/*. */
