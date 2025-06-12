@@ -1,6 +1,6 @@
 package mapas;
 
-public class TabuleiroOculto extends Tabuleiro{
+public class TabuleiroOculto extends Tabuleiro<Integer>{
     public TabuleiroOculto() {
         super(Integer.class);
         for (int i = 0; i < getLinha(); i++) {
@@ -19,4 +19,3 @@ public class TabuleiroOculto extends Tabuleiro{
         }
     }
 }
-/*. */

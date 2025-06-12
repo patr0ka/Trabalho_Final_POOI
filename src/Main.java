@@ -1,28 +1,13 @@
 import java.util.Scanner;
-import mapas.Tabuleiro;
 import mapas.TabuleiroDoJogador;
 import mapas.TabuleiroOculto;
 
 public class Main {
     public static void main(String[] args) {
-        Tabuleiro tabuleiroOculto1 = new TabuleiroOculto();
+        TabuleiroOculto tabuleiroOculto1 = new TabuleiroOculto();
         tabuleiroOculto1.imprimeTabluleiro();
-        Tabuleiro tabuleiroDoJogador = new TabuleiroDoJogador();
+        TabuleiroDoJogador tabuleiroDoJogador = new TabuleiroDoJogador();
         tabuleiroDoJogador.imprimeTabluleiro();
-        // Navio PortaAvioesJ1 = new PortaAvioes();
-        // Navio PortaAvioesJ2 = new PortaAvioes();
-        // Navio TorpedeiroJ1 = new ContraTorpedeiro();
-        // Navio TorpedeiroJ2 = new ContraTorpedeiro();
-        // Navio Submarino1J1 = new Submarino();
-        // Navio Submarino2J1 = new Submarino();
-        // Navio Submarino1J2 = new Submarino();
-        // Navio Submarino2J2 = new Submarino();
-        // Navio Patrulheiro1J1 = new Patrulheiro();
-        // Navio Patrulheiro2J1 = new Patrulheiro();
-        // Navio Patrulheiro3J1 = new Patrulheiro();
-        // Navio Patrulheiro1J2 = new Patrulheiro();
-        // Navio Patrulheiro2J2 = new Patrulheiro();
-        // Navio Patrulheiro3J2 = new Patrulheiro();
 
         try (Scanner sc = new Scanner(System.in)) {
 
@@ -42,4 +27,4 @@ public class Main {
             System.out.println("Jogo finalizado.");
         }
     }
-}/*. */
+}

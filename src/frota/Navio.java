@@ -16,25 +16,15 @@ public class Navio {
         return vida;
     }
 
-    public void setVida(int vida1){
-        vida = vida1;
-    }
-
-    public int tomarDano(){
-        if(vida==1){
-
-        }
-        vida--;
-        setVida(vida);
-        return vida;
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
     public void isDestruido() {
-        if (vida <= 0) {
+        if (vida == 0) {
             System.out.println(nome + " está destruído.");
         } else {
             System.out.println(nome + " ainda está inteiro.");
         }
     }
-
-}/*. */
+}
