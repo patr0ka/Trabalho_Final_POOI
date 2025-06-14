@@ -1,4 +1,4 @@
-package frota;
+package fleet;
 
 public class Submarino extends Navio{
     public Submarino(){

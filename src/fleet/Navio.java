@@ -1,4 +1,4 @@
-package frota;
+package fleet;
 public class Navio {
     private int vida;
     private final String nome;

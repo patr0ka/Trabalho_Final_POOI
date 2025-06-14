@@ -1,24 +1,28 @@
 import java.util.Scanner;
-import mapas.TabuleiroDoJogador;
-import mapas.TabuleiroOculto;
+import maps.HiddenBoard;
+import maps.PlayerBoard;
 
 public class Main {
     public static void main(String[] args) {
-        TabuleiroOculto tabuleiroOculto1 = new TabuleiroOculto();
-        tabuleiroOculto1.imprimeTabluleiro();
-        TabuleiroDoJogador tabuleiroDoJogador = new TabuleiroDoJogador();
-        tabuleiroDoJogador.imprimeTabluleiro();
+        HiddenBoard[] tabuleiroOculto = new HiddenBoard[2];
+        PlayerBoard[] tabuleiroDoJogador = new PlayerBoard[2];
+        Player[] players = new Player[2];
 
         try (Scanner sc = new Scanner(System.in)) {
+            for(int i = 0; i < 1; i++) {
+                players[i] = new Player();
+                System.out.print("Insira o nome do Jogador " + (i+1) + ":");
+                players[i].setNome(sc.next());
+                players[i].setId(i+1);
 
-            System.out.println("Insira o nome do Jogador 1:");
-            String nome1 = sc.next();
-            System.out.println("Insira o nome do Jogador 2:");
-            String nome2 = sc.next();
+                tabuleiroOculto[i] = new HiddenBoard();
+                tabuleiroOculto[i].insereNoTabuleiro(sc);
+                tabuleiroDoJogador[i] = new PlayerBoard();
+                tabuleiroDoJogador[i].insereNoTabuleiro(tabuleiroOculto[i]);
+            }
 
-            Jogador J1 = new Jogador(nome1);
-            Jogador J2 = new Jogador(nome2);
-
+            tabuleiroOculto[0].imprimeTabluleiro();
+            tabuleiroDoJogador[0].imprimeTabluleiro();
         }
         catch(Exception exception){
             System.out.println("Ocorreu um erro: " + exception.getMessage());
