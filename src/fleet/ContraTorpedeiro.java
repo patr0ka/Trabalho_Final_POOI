@@ -1,4 +1,4 @@
-package frota;
+package fleet;
 
 public class ContraTorpedeiro extends Navio{
     public ContraTorpedeiro(){
