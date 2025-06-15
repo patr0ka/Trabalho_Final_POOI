@@ -12,8 +12,6 @@ public class Main {
         Player player2 = new Player();
 
         try (Scanner sc = new Scanner(System.in)) {
-
-            
             System.out.println("Insira o nome do jogador 1: ");
             player1.setNome(sc.next());
             System.out.println("Insira o nome do jogador 2: ");
