@@ -4,144 +4,114 @@ import java.util.Scanner;
 import playerQueues.PlayersVesselQueue;
 import playerQueues.VesselQueue;
 
-public class HiddenBoard extends Board<Integer>{
+public class HiddenBoard extends Board<Navio>{
     private final PlayersVesselQueue playerVessel = new VesselQueue();
-    private boolean posicaoInvalida;
 
     public HiddenBoard() {
-        super(Integer.class);
+        super(Navio.class);
         for (int i = 0; i < getLinha(); i++) {
             for (int j = 0; j < getColuna(); j++) {
-                setValor(i , j , 0);
+                setValor(i , j , null);
             }
         }
     }
     @Override
     public void imprimeTabluleiro() {
-        for(int i = 0; i < getLinha(); i++) {
-            for(int j = 0; j < getColuna(); j++) {
-                System.out.print(getTabuleiro()[i][j] + " ");
+        System.out.print("   ");
+        for(int j=0; j< getColuna(); j++){
+            System.out.print((char)('A' + j) + " ");
+        }
+        System.out.println();
+
+        for(int i=0; i<getLinha(); i++){
+            System.out.printf("%2d", i+1);
+
+            for(int j=0; j<getColuna(); j++){
+                Navio navio = getValor(i, j);
+
+                if(navio == null){
+                    System.out.print("~ ");
+                } else{
+                    System.out.print(navio.getNome().charAt(0) + " ");
+                }
             }
             System.out.println();
         }
     }
 
+
     @Override
     public void insereNoTabuleiro(Scanner sc) {
         String eixo;
-        int lines;
-        int coluns;
+        int line; // Armazenará o índice da linha (0-9)
+        int col;  // Armazenará o índice da coluna (0-9)
 
-        while (!playerVessel.emptyQueue()) { 
+
+        while (!playerVessel.emptyQueue()) {
             Navio navio = playerVessel.getElement();
 
-            System.out.print("Voce tem um navio do tipo (" + navio.getNome() + "), que tem o tamanho (" + navio.getVida() + ") para alocar. \nVoce deseja colocalo na Horizontala(H), ou na Vertical(V):");
-            
-            do { 
-                eixo = sc.next();
-                if (!eixo.equalsIgnoreCase("H") && !eixo.equalsIgnoreCase("V")) {
-                    System.out.print("Entrada invalida tente novamente (H) ou (V):");
-                }
-            } while (!eixo.equalsIgnoreCase("H") && !eixo.equalsIgnoreCase("V"));
-            
-            System.out.println();
+            System.out.println("\n-----------------------------------------------------");
+            System.out.print("Jogador, posicione seu navio: " + navio.getNome() + " (tamanho: " + navio.getVida() + ")");
+            System.out.print("\nOrientação Horizontal(H) ou Vertical(V)?: ");
 
-            if (eixo.equalsIgnoreCase("H")) {
-                System.out.print("Agora escolha as coordenadas do navio. Escolha uma linha de (1) a (10):");
-                posicaoInvalida = true;
-                do {
-                    lines = sc.nextInt();
-                    if (lines > 10 || lines < 1) {
-                        System.out.print("Entrada invalida tente novamente de (0) ate (10):");
+            // Loop para obter a orientação
+            while (true) {
+                eixo = sc.next().toUpperCase();
+                if (eixo.equals("H") || eixo.equals("V")) {
+                    break;
+                }
+                System.out.print("Entrada inválida. Tente novamente (H ou V): ");
+            }
+
+            // Loop principal para obter coordenadas válidas
+            while(true) {
+                System.out.print("Digite a coordenada inicial (Ex: A5, C10): ");
+                try {
+                    String coordInput = sc.next().toUpperCase();
+                    col = coordInput.charAt(0) - 'A'; // 'A' -> 0, 'B' -> 1, etc.
+                    line = Integer.parseInt(coordInput.substring(1)) - 1; // "5" -> 4, "10" -> 9
+
+                    // Validação unificada
+                    if (line < 0 || line > 9 || col < 0 || col > 9) {
+                        System.out.println("Coordenada fora do tabuleiro. Tente novamente.");
+                        continue;
                     }
-                    
-                    boolean encontrouEspaco = false;
-                    for (int i = 0; i <= 10 - navio.getVida(); i++) {
-                        if (validLine(lines, i, navio.getVida())) {
-                            encontrouEspaco = true;
-                            break;
+
+                    if (eixo.equals("H")) {
+                        if (col + navio.getVida() > 10) {
+                            System.out.println("O navio não cabe aqui (ultrapassa a borda direita).");
+                            continue;
+                        }
+                        if (validLine(line, col, navio.getVida())) {
+                            for (int i = 0; i < navio.getVida(); i++) {
+                                setValor(line, col + i, navio);
+                            }
+                            break; // Sucesso, sai do loop de coordenadas
+                        }
+                    } else { // Vertical
+                        if (line + navio.getVida() > 10) {
+                            System.out.println("O navio não cabe aqui (ultrapassa a borda inferior).");
+                            continue;
+                        }
+                        if (validColum(line, col, navio.getVida())) {
+                            for (int i = 0; i < navio.getVida(); i++) {
+                                setValor(line + i, col, navio);
+                            }
+                            break; // Sucesso, sai do loop de coordenadas
                         }
                     }
-                    if (!encontrouEspaco) {
-                        System.out.print("Essa linha está cheia ou sem espaço suficiente. Escolha outra de (1) ate (10):");
-                    } else {
-                        posicaoInvalida = false;
-                    }
-                } while (posicaoInvalida);
 
-                // Transforma a coordenada valida em um char;
-                char character = (char)((10 - navio.getVida()) + 64);
-                char indice = character;
+                    // Se chegou aqui, a posição já está ocupada
+                    System.out.println("Posição já ocupada. Escolha outra coordenada.");
 
-                System.out.print("Escolha uma coluda de (A) até (" + indice + "):");
-
-                do { 
-                    posicaoInvalida = false;
-                    character = sc.next().charAt(0);
-                    coluns = (int)(character - 64);
-                    if (coluns > (int)(indice - 64) || coluns < 1 || !validColum(lines, coluns, navio.getVida())) {
-                        posicaoInvalida = true;
-                        System.out.print("Entrada invalida tente novamente de (A) ate (" + indice + "):");
-                    }
-                } while (posicaoInvalida);
-
-                System.out.println();
-
-                if (!posicaoInvalida) {
-                    for (int i = 0; i < navio.getVida(); i++) {
-                        setValor(lines, coluns, 1);
-                        coluns++;
-                    }
-                    playerVessel.removeElement();
-                }
-
-            } else {
-                char character;
-                System.out.print("Agora escolha as coordenadas do navio. Escolha uma linha de (A) ate (J):");
-                posicaoInvalida = true;
-                do { 
-                    character = sc.next().charAt(0);
-                    coluns = (int)(character - 64);
-
-                    if (coluns > 10 || coluns < 1) {
-                        System.out.print("Entrada invalida tente novamente de (A) ate (J):");
-                    }
-
-                    boolean encontrouEspaco = false;
-                    for (int i = 0; i <= 10 - navio.getVida(); i++) {
-                        if (validColum(i, coluns, navio.getVida())) {
-                            encontrouEspaco = true;
-                            break;
-                        }
-                    }
-                    if (!encontrouEspaco) {
-                        System.out.print("Essa coluna está cheia ou sem espaço suficiente. Escolha outra de (A) ate (J):");
-                    } else {
-                        posicaoInvalida = false;
-                    }
-                } while (posicaoInvalida);
-
-                int indice = 10 - navio.getVida();
-                System.out.print("Agora escolha as coordenadas do navio. Escolha uma linha de (1) ate (" + (indice) + "):");
-                do {
-                    posicaoInvalida = false; 
-                    lines = sc.nextInt();
-                    if (lines > indice || lines < 1 || !validColum(lines, coluns, navio.getVida())) {
-                        posicaoInvalida = true;
-                        System.out.print("Entrada invalida tente novamente de (1) ate (" + indice + "):");
-                    }
-                } while (posicaoInvalida);
-
-                System.out.println();
-
-                if (!posicaoInvalida) {
-                    for (int i = 0; i < navio.getVida(); i++) {
-                        setValor(lines, coluns, 1);
-                        lines++;
-                    }
-                    playerVessel.removeElement();
+                } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+                    System.out.println("Formato de coordenada inválido. Use LetraNúmero (Ex: A1, B2).");
                 }
             }
-        }    
+            playerVessel.removeElement();
+            System.out.println("Navio " + navio.getNome() + " posicionado! Tabuleiro atual:");
+            imprimeTabluleiro();
+        }
+        System.out.println("\nTodos os navios foram posicionados!");
     }
 }

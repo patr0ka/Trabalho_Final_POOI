@@ -7,7 +7,7 @@ public class PlayerBoard extends Board<String>{
 
         for (int i = 0; i < getLinha(); i++) {
             for (int j = 0; j < getColuna(); j++) {
-                setValor(i , j , "~");
+                setValor(i , j , "~ ");
             }
         }
     }
@@ -22,13 +22,4 @@ public class PlayerBoard extends Board<String>{
         }
     }
 
-    public void insereNoTabuleiro(HiddenBoard hiddenBoard) {
-        for (int i = 1; i < getLinha(); i++) {
-            for (int j = 1; j < getColuna(); j ++) {
-                if (hiddenBoard.getValor(i, j) == 1) {
-                    setValor(i, j, "B");
-                }
-            }
-        }
-    }
 }

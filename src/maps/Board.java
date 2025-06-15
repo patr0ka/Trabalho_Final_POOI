@@ -31,7 +31,7 @@ public abstract class Board<T> {
     public boolean validLine(int linha, int coluna, int tamanhoDoBarco) {
         T[][] board = this.getTabuleiro(); // usa o próprio tabuleiro
         for (int i = coluna; i < coluna + tamanhoDoBarco; i++) {
-            if (board[linha][i].equals(1)) {
+            if (i >= getColuna() || board[linha][i] != null) {
                 return false;
             }
         }
@@ -48,5 +48,6 @@ public abstract class Board<T> {
         return true;
     }
 
-    public void insereNoTabuleiro(Scanner sc) {};
+    public void insereNoTabuleiro(Scanner sc) {}
+
 }
