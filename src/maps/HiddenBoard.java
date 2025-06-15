@@ -35,6 +35,8 @@ public class HiddenBoard extends Board<Integer>{
         while (!playerVessel.emptyQueue()) {
             Navio navio = playerVessel.getElement();
 
+            playerBoard.imprimeTabluleiro();
+
             System.out.print("Voce tem um navio do tipo (" + navio.getNome() + "), que tem o tamanho (" + navio.getVida() + ") para alocar. \nVoce deseja colocalo na Horizontala(H), ou na Vertical(V):");
             
             do { 
@@ -45,7 +47,6 @@ public class HiddenBoard extends Board<Integer>{
             } while (!eixo.equalsIgnoreCase("H") && !eixo.equalsIgnoreCase("V"));
             
             System.out.println();
-            playerBoard.imprimeTabluleiro();
 
             if (eixo.equalsIgnoreCase("H")) {
                 System.out.print("Agora escolha as coordenadas do navio. Escolha uma linha de (1) a (10):");

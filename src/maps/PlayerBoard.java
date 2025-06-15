@@ -14,11 +14,26 @@ public class PlayerBoard extends Board<Navio>{
     }
     
     @Override
-    public void imprimeTabluleiro(){
+    public void imprimeTabluleiro() {
 
-        for(int i = 0; i < getLinha(); i++) {
-            for(int j = 0; j < getColuna(); j++) {
-                System.out.print(getTabuleiro()[i][j] == null ? "~" : getInicial());
+        /* ---------- cabeçalho (A-J, A-Z etc.) ---------- */
+        System.out.print("   ");                       // três espaços p/ alinhar com os números
+        for (int j = 0; j < getColuna(); j++) {
+            char letra = (char) ('A' + j);            // A, B, C…
+            System.out.printf(" %c", letra);
+        }
+        System.out.println();                         // quebra de linha depois do cabeçalho
+
+        /* ---------- corpo do tabuleiro ---------- */
+        for (int i = 0; i < getLinha(); i++) {
+
+            System.out.printf("%2d ", i + 1);         // número da linha, alinhado à direita
+
+            for (int j = 0; j < getColuna(); j++) {
+                Navio navio = getValor(i, j);
+
+                char simbolo = (navio == null) ? '~' : navio.getInicial();
+                System.out.printf(" %c", simbolo);
             }
             System.out.println();
         }

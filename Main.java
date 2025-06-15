@@ -1,6 +1,5 @@
 import java.util.Scanner;
-import maps.HiddenBoard;
-import maps.PlayerBoard;
+import maps.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,9 +23,9 @@ public class Main {
             tabuleiroOculto1.insereNoTabuleiro(sc, tabuleiroDoJogador1);
 
             // player2
-            
+            System.out.println("Jogador 2, selecione os locais dos navios!");
             tabuleiroOculto2.insereNoTabuleiro(sc, tabuleiroDoJogador2);   
-            tabuleiroOculto2.imprimeTabluleiro();
+            
         }
         catch(Exception exception){
             System.out.println("Ocorreu um erro: " + exception.getMessage());
