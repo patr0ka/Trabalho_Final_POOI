@@ -1,12 +1,10 @@
 public class Player{
     private String nome;
-    private int id;
     private int pontos;
 
     public Player(){}
 
-    public Player(String nome, int id){
-        this.id = id;
+    public Player(String nome){
         this.nome = nome;
     }
 
@@ -24,13 +22,5 @@ public class Player{
 
     public void setPontos(int pontos){
         this.pontos = pontos;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
