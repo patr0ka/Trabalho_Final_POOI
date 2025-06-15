@@ -30,23 +30,36 @@ public abstract class Board<T> {
 
     public boolean validLine(int linha, int coluna, int tamanhoDoBarco) {
         T[][] board = this.getTabuleiro(); // usa o próprio tabuleiro
-        for (int i = coluna; i < coluna + tamanhoDoBarco; i++) {
-            if (board[linha][i].equals(1)) {
-                return false;
+        if((coluna + tamanhoDoBarco)>10){
+            return false;
+        }
+        else{
+            for (int i = coluna; i < coluna + tamanhoDoBarco; i++) {
+                if (board[linha][i].equals(1)) {
+                    return false;
+                }
             }
+
         }
         return true;
     }
 
     public boolean validColum(int linha, int coluna, int tamanhoDoBarco) {
         T[][] board = this.getTabuleiro(); // usa o próprio tabuleiro
-        for (int i = linha; i < linha + tamanhoDoBarco; i++) {
-            if (board[i][coluna].equals(1)) {
-                return false;
+        if((linha + tamanhoDoBarco)>10){
+            return false;
+        }
+        else{
+            for (int i = linha; i < linha + tamanhoDoBarco; i++) {
+                if (board[i][coluna].equals(1)) {
+                    return false;
+                }
             }
         }
         return true;
     }
 
-    public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard) {};
+    public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard) {
+
+    };
 }
