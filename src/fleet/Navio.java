@@ -27,4 +27,9 @@ public class Navio {
             System.out.println(nome + " ainda está inteiro.");
         }
     }
+
+    public char getInicial(){
+        return Character.toUpperCase(nome.charAt(0));
+    }
 }
+

@@ -27,13 +27,15 @@ public class HiddenBoard extends Board<Integer>{
     }
 
     @Override
-    public void insereNoTabuleiro(Scanner sc) {
+    public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard) {
         String eixo;
         int lines;
         int coluns;
 
-        while (!playerVessel.emptyQueue()) { 
+        while (!playerVessel.emptyQueue()) {
             Navio navio = playerVessel.getElement();
+
+            playerBoard.imprimeTabluleiro();
 
             System.out.print("Voce tem um navio do tipo (" + navio.getNome() + "), que tem o tamanho (" + navio.getVida() + ") para alocar. \nVoce deseja colocalo na Horizontala(H), ou na Vertical(V):");
             
@@ -54,7 +56,7 @@ public class HiddenBoard extends Board<Integer>{
                     if (lines > 10 || lines < 1) {
                         System.out.print("Entrada invalida tente novamente de (0) ate (10):");
                     }
-                    
+
                     boolean encontrouEspaco = false;
                     for (int i = 0; i <= 10 - navio.getVida(); i++) {
                         if (validLine(lines, i, navio.getVida())) {
@@ -89,8 +91,8 @@ public class HiddenBoard extends Board<Integer>{
 
                 if (!posicaoInvalida) {
                     for (int i = 0; i < navio.getVida(); i++) {
-                        setValor(lines, coluns, 1);
-                        coluns++;
+                        setValor(lines-1, i, 1);
+                        playerBoard.setCoordenadasPlayerBoard(lines-1, i, navio);
                     }
                     playerVessel.removeElement();
                 }
@@ -136,8 +138,8 @@ public class HiddenBoard extends Board<Integer>{
 
                 if (!posicaoInvalida) {
                     for (int i = 0; i < navio.getVida(); i++) {
-                        setValor(lines, coluns, 1);
-                        lines++;
+                        setValor(i, coluns-1, 1);
+                        playerBoard.setCoordenadasPlayerBoard(i, coluns, navio);
                     }
                     playerVessel.removeElement();
                 }

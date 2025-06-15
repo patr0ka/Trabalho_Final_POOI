@@ -48,5 +48,5 @@ public abstract class Board<T> {
         return true;
     }
 
-    public void insereNoTabuleiro(Scanner sc) {};
+    public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard) {};
 }
