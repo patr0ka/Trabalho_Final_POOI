@@ -28,8 +28,11 @@ public class Navio {
         }
     }
 
-    public char getInicial(){
+    public Navio getInicial(){
         return Character.toUpperCase(nome.charAt(0));
     }
+
+
+
 }
 

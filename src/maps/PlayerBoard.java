@@ -12,6 +12,10 @@ public class PlayerBoard extends Board<Navio>{
             }
         }
     }
+
+    public void setValorCoordenada(int linha, int coluna, PlayerBoard playerBoard, Navio novoValor){
+        playerBoard.setValor(linha, coluna, novoValor);
+    }
     
     @Override
     public void imprimeTabluleiro() {
