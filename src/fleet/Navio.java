@@ -28,6 +28,9 @@ public class Navio {
         }
     }
 
+    /**
+     * @return Esse metodo retorna a primeira letra do nome do navio em UpperCase, por exemplo, Contra Torpedeiro retorna um "C".
+     */
     public char getInicial(){
         return Character.toUpperCase(nome.charAt(0));
     }

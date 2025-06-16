@@ -34,6 +34,11 @@ public class HiddenBoard extends Board<Integer> {
 
     /* ======== MÉTODOS AUXILIARES DE LEITURA E VALIDAÇÃO ======== */
 
+    /**
+     * verificação de entrada que verifica o input até que se encaixe no padrão exigido.
+     * @param sc scanner usado para ler input no terminal.
+     * @return retorna o eixo escolhido pelo jogador.
+     */
     private char lerEixo(Scanner sc) {
         char eixo;
         do {
@@ -43,6 +48,12 @@ public class HiddenBoard extends Board<Integer> {
         return eixo;
     }
 
+    /**
+     * verificação de entrada que verifica o input até que se encaixe no padrão exigido.
+     * @param sc scanner usado para ler o input do terminal.
+     * @param maxInclusive variavel que muda de acordo com o tamanho do barco para impedir posicionamentos que causariam IndexOutOfBounds.
+     * @return retorna a linha escolhida -1, já que o index do vetor começa em 0.
+     */
     private int lerLinha(Scanner sc, int maxInclusive) {
         int linha;
         do {
@@ -52,6 +63,12 @@ public class HiddenBoard extends Board<Integer> {
         return linha - 1;
     }
 
+    /**
+     * verificação de entrada que verifica o input até que se encaixe no padrão exigido.
+     * @param sc scanner usado para ler o input do terminal.
+     * @param maxInclusive variavel que muda de acordo com o tamanho do barco para impedir posicionamentos que causariam IndexOutOfBounds.
+     * @return retorna a coluna escolhida.
+     */
     private int lerColuna(Scanner sc, int maxInclusive) {
         char c;
         int coluna;
@@ -65,6 +82,13 @@ public class HiddenBoard extends Board<Integer> {
 
     /* ======== VALIDAÇÕES DE ESPAÇO LIVRE ======== */
 
+    /**
+     * Verifica se um navio pode ser posicionado horizontalmente no tabuleiro a partir de uma coordenada inicial.
+     * @param linha   O índice da linha onde a peça será colocada.
+     * @param colIni  A coluna inicial para o posicionamento da peça.
+     * @param tamanho Tamanho do navio que vai ser posicionado.
+     * @return Retorna true ou false dependendo se cabe ou não.
+     */
     private boolean cabeHorizontal(int linha, int colIni, int tamanho) {
         if (colIni + tamanho > BOARD_SIZE) return false;
         for (int c = colIni; c < colIni + tamanho; c++) {
@@ -73,6 +97,13 @@ public class HiddenBoard extends Board<Integer> {
         return true;
     }
 
+    /**
+     * Verifica se um navio pode ser posicionado e verticalmente no tabuleiro a partir de uma coordenada inicial.
+     * @param linIni  A linha inicial para o posicionamento da peça.
+     * @param coluna  O índice da coluna onde a peça será colocada.
+     * @param tamanho Tamanho do navio que vai ser posicionado.
+     * @return Retorna true ou false dependendo se cabe ou não.
+     */
     private boolean cabeVertical(int linIni, int coluna, int tamanho) {
         if (linIni + tamanho > BOARD_SIZE) return false;
         for (int l = linIni; l < linIni + tamanho; l++) {
@@ -99,6 +130,33 @@ public class HiddenBoard extends Board<Integer> {
 
     /* ======== MÉTODO PRINCIPAL ======== */
 
+
+
+    /**
+     * Sobrescreve o metodo de inserção no tabuleiro para implementar uma lógica
+     * interativa de posicionamento de navios, guiada pelo usuário.
+     * <p>
+     * O metodo percorre uma fila de navios pendentes ({@code playerVessel}). Para cada
+     * navio, ele realiza o seguinte ciclo:
+     * <ol>
+     * <li>Exibe o tabuleiro atual para o jogador.</li>
+     * <li>Informa qual navio deve ser colocado e seu tamanho.</li>
+     * <li>Lê a orientação desejada (Horizontal ou Vertical) do usuário.</li>
+     * <li>Entra em um loop que solicita as coordenadas até que uma posição
+     * válida seja fornecida.</li>
+     * <li>Valida se o navio cabe nos limites do tabuleiro e não se sobrepõe a
+     * outros navios já posicionados.</li>
+     * <li>Uma vez que uma posição válida é informada, o navio é colocado no
+     * tabuleiro e removido da fila de alocação.</li>
+     * </ol>
+     * O processo se repete até que todos os navios da frota do jogador
+     * tenham sido posicionados.
+     *
+     * @param sc A instância do {@code Scanner} para ler as entradas do
+     * usuário (orientação e coordenadas) a partir do console.
+     * @param playerBoard O tabuleiro visível do jogador, que é atualizado e exibido
+     * a cada navio posicionado para fornecer uma forma de visualização para o jogador.
+     */
     @Override
     public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard) {
         while (!playerVessel.emptyQueue()) {

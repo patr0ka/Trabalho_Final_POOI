@@ -73,11 +73,18 @@ public class PlayerBoard extends Board<Posicao>{
         }
         System.out.println();
     }
-    
+
+
     public void setCoordenadasPlayerBoard(int x, int y, Posicao navio) {
         setValor(x, y, navio);
     }
 
+    /**
+     * Essa função verifica se a posição escolhida para ser bombardeada é válida, e se era um navio ou água.
+     * @param x Linha escolhida para ser bombardeada.
+     * @param j Coluna escolhida para ser bombaredeada.
+     * @return retorna true caso tenha acertado um navio, e false caso tenha sido na água.
+     */
     public boolean bombardear(int x, char j) {
         int y = j - 'A';
         Navio navio = this.getValor(x-1, y).getNavio();

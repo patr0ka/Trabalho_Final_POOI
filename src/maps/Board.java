@@ -5,7 +5,15 @@ public abstract class Board<T> {
     private final  int linha = 10, coluna = 10;
     private final T[][] tabuleiro;
 
-    @SuppressWarnings("unchecked") /*Fala para o compilador ignorar o aviso gerado pela declaração do array genérico */
+    /**
+     * Constrói um novo tabuleiro com dimensões pré-definidas.
+     * Utiliza reflect para instanciar um array de tipo genérico, uma vez que o Java
+     * não permite a criação direta (ex: new T[10][10]). A anotação @SuppressWarnings("unchecked")
+     * é necessária para evitar o aviso gerado pelo compilador.
+     *
+     * @param tipo O objeto Class do tipo genérico T, necessário para a criação da matriz.
+     */
+    @SuppressWarnings("unchecked")
     public Board(Class<T> tipo) {
         this.tabuleiro = (T[][]) java.lang.reflect.Array.newInstance(tipo, linha, coluna); /*Devido as limitações do java é necessário usar essa notação para criar um array generico */
     }
@@ -32,6 +40,13 @@ public abstract class Board<T> {
         return coluna;
     }
 
+    /**
+     * Esse metodo verifica se a linha escolhida é valida.
+     * @param linha A linha escolhida da matriz.
+     * @param coluna A coluna escolhida da matriz.
+     * @param tamanhoDoBarco O tamanho do barco que vai ser colocado na matriz.
+     * @return Retorna true ou false para dizer se a posição é valida.
+     */
     public boolean validLine(int linha, int coluna, int tamanhoDoBarco) {
         T[][] board = this.getTabuleiro(); // usa o próprio tabuleiro
         if((coluna + tamanhoDoBarco)>10){
