@@ -1,13 +1,9 @@
 package maps;
-import fleet.Navio;
-import fleet.NavioDestruido;
-
 import java.util.Scanner;
 
 public abstract class Board<T> {
     private final  int linha = 10, coluna = 10;
     private final T[][] tabuleiro;
-    static Navio parteDestruida = new NavioDestruido();
 
     @SuppressWarnings("unchecked") /*Fala para o compilador ignorar o aviso gerado pela declaração do array genérico */
     public Board(Class<T> tipo) {
@@ -23,12 +19,15 @@ public abstract class Board<T> {
     public T getValor(int i, int j) {
         return tabuleiro[i][j];
     }
+
     public T[][] getTabuleiro() {
         return tabuleiro;
     }
+
     public int getLinha() {
         return linha;
     }
+
     public int getColuna() {
         return coluna;
     }
@@ -64,22 +63,5 @@ public abstract class Board<T> {
         return true;
     }
 
-    public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard){
-
-    };
-
-    public static boolean bombardeio(int linha, int coluna, HiddenBoard oponenteOculto, PlayerBoard atacanteVisivel, Navio navioAtingido) {
-        Integer valor = oponenteOculto.getValor(linha, coluna);
-
-        if (valor == null) {
-            System.out.println("ÁGUA!");
-            return false;
-        } else {
-            System.out.println("FOGO!");
-            atacanteVisivel.setValor(linha, coluna, parteDestruida.getInicial()); // Marca acerto
-            navioAtingido.setVida(navioAtingido.getVida()-1); // se tiver esse método, marca dano no navio
-            return true;
-        }
-    }
-
+    public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard){};
 }
