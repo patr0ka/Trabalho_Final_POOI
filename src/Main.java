@@ -12,20 +12,37 @@ public class Main {
 
         Player player1 = new Player();
         Player player2 = new Player();
+        Embarcacoes[] navios = Embarcacoes.values();
 
+        System.out.println("                            ██████╗░░█████╗░████████╗░█████╗░██╗░░░░░██╗░░██╗░█████╗    ███╗░░██╗░█████╗░██╗░░░██╗░█████╗░██╗░░░░░\n" +
+                "                            ██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██║░░░░░██║░░██║██╔══██╗   ████╗░██║██╔══██╗██║░░░██║██╔══██╗██║░░░░░\n" +
+                "                            ██████╦╝███████║░░░██║░░░███████║██║░░░░░███████║███████║   ██╔██╗██║███████║╚██╗░██╔╝███████║██║░░░░░\n" +
+                "                            ██╔══██╗██╔══██║░░░██║░░░██╔══██║██║░░░░░██╔══██║██╔══██║   ██║╚████║██╔══██║░╚████╔╝░██╔══██║██║░░░░░\n" +
+                "                            ██████╦╝██║░░██║░░░██║░░░██║░░██║███████╗██║░░██║██║░░██║   ██║░╚███║██║░░██║░░╚██╔╝░░██║░░██║███████╗\n" +
+                "                            ╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝   ╚═╝░░╚══╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚══════╝\n");
+
+
+        System.out.println("Seja bem-vindo(a) a Batalha Naval!");
+        System.out.println("Sua frota é composta de:");
+        for(Embarcacoes todosOsNavios : navios){
+            System.out.println("-> " + todosOsNavios.getQuantidade() + " " + todosOsNavios);
+        }
+        System.out.println();
         try (Scanner sc = new Scanner(System.in)) {
 
             // <==== FASE DE PREPARAÇÂO ===>
-            System.out.print("Insira o nome do jogador 1: ");
+            System.out.println("<=== Insira o nome do jogador 1 ===>");
+            System.out.print("-> ");
             player1.setNome(sc.next());
-            System.out.print("Insira o nome do jogador 2: ");
+            System.out.println("<=== Insira o nome do jogador 2 ===>");
+            System.out.print("-> ");
             player2.setNome(sc.next());
 
-            System.out.println("\nJogador 1, selecione os locais dos navios!");
+            System.out.println("\n <=== " + player1.getNome() + ", selecione os locais dos navios! ===>");
             tabuleiroOculto1.insereNoTabuleiro(sc, tabuleiroDoJogador1);
 
             // player2
-            System.out.println("\nJogador 2, selecione os locais dos navios!");
+            System.out.println("\n <=== " + player2.getNome() + ", selecione os locais dos navios! ===>");
             tabuleiroOculto2.insereNoTabuleiro(sc, tabuleiroDoJogador2);
             System.out.println();
             System.out.println("====== INÍCIO DA BATALHA! ======");

@@ -55,10 +55,14 @@ public class HiddenBoard extends Board<Integer> {
      * @return retorna a linha escolhida -1, já que o index do vetor começa em 0.
      */
     private int lerLinha(Scanner sc, int maxInclusive) {
-        int linha;
+        int linha = -1;
         do {
             System.out.printf(Locale.ROOT, "Linha (1-%d): ", maxInclusive);
-            linha = sc.nextInt();
+            if (sc.hasNextInt()) {
+                linha = sc.nextInt();
+            } else {
+                sc.next();
+            }
         } while (linha < 1 || linha > maxInclusive);
         return linha - 1;
     }
@@ -165,7 +169,7 @@ public class HiddenBoard extends Board<Integer> {
             barco.setNavio(navio);
             
             playerBoard.imprimeTabluleiro();
-            System.out.printf("%nAlocar navio (%s) tamanho (%d).%n", navio.getNome(), navio.getVida());
+            System.out.printf("Alocar navio (%s) tamanho (%d).%n", navio.getNome(), navio.getVida());
 
             char eixo = lerEixo(sc);
 

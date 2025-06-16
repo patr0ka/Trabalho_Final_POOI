@@ -1,3 +1,14 @@
 public enum Embarcacoes {
-    Porta_Avioes, Contra_Torpedeiro, Submarino, Patrulheiro
+    Porta_Aviao(1), Contra_Torpedeiro(1), Submarinos(2), Patrulheiros(3);
+
+    private int quantidade;
+
+    Embarcacoes(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
 }
+
