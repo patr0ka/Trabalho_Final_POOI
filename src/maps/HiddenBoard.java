@@ -1,6 +1,7 @@
 package maps;
 
 import fleet.Navio;
+import fleet.Posicao;
 import java.util.Locale;
 import java.util.Scanner;
 import playerQueues.PlayersVesselQueue;
@@ -82,15 +83,15 @@ public class HiddenBoard extends Board<Integer> {
 
     /* ======== POSICIONAMENTO NO TABULEIRO ======== */
 
-    private void colocaHorizontal(int linha, int colIni, Navio navio, PlayerBoard pb) {
-        for (int i = 0; i < navio.getVida(); i++) {
+    private void colocaHorizontal(int linha, int colIni, Posicao navio, PlayerBoard pb) {
+        for (int i = 0; i < navio.getNavio().getVida(); i++) {
             setValor(linha, colIni + i, 1);
             pb.setCoordenadasPlayerBoard(linha, colIni + i, navio);
         }
     }
 
-    private void colocaVertical(int linIni, int coluna, Navio navio, PlayerBoard pb) {
-        for (int i = 0; i < navio.getVida(); i++) {
+    private void colocaVertical(int linIni, int coluna, Posicao navio, PlayerBoard pb) {
+        for (int i = 0; i < navio.getNavio().getVida(); i++) {
             setValor(linIni + i, coluna, 1);
             pb.setCoordenadasPlayerBoard(linIni + i, coluna, navio);
         }
@@ -102,6 +103,9 @@ public class HiddenBoard extends Board<Integer> {
     public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard) {
         while (!playerVessel.emptyQueue()) {
             Navio navio = playerVessel.getElement();
+            Posicao barco = new Posicao();
+            barco.setNavio(navio);
+            
             playerBoard.imprimeTabluleiro();
             System.out.printf("%nAlocar navio (%s) tamanho (%d).%n", navio.getNome(), navio.getVida());
 
@@ -114,7 +118,7 @@ public class HiddenBoard extends Board<Integer> {
                     int colIni = lerColuna(sc, BOARD_SIZE - navio.getVida() + 1);
 
                     if (cabeHorizontal(linha, colIni, navio.getVida())) {
-                        colocaHorizontal(linha, colIni, navio, playerBoard);
+                        colocaHorizontal(linha, colIni, barco, playerBoard);
                         colocado = true;
                     }
                     else {
@@ -125,7 +129,7 @@ public class HiddenBoard extends Board<Integer> {
                     int linIni = lerLinha(sc, BOARD_SIZE - navio.getVida() + 1);
 
                     if (cabeVertical(linIni, coluna, navio.getVida())) {
-                        colocaVertical(linIni, coluna, navio, playerBoard);
+                        colocaVertical(linIni, coluna, barco, playerBoard);
                         colocado = true;
                     } else {
                         System.out.println("Espaço insuficiente, tente outra posicao.");

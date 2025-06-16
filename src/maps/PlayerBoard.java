@@ -1,16 +1,22 @@
 package maps;
 import fleet.Navio;
+import fleet.Posicao;
 
-public class PlayerBoard extends Board<Navio>{
-
+public class PlayerBoard extends Board<Posicao>{
     public PlayerBoard() {
-        super(Navio.class);
+        super(Posicao.class);
 
         for (int i = 0; i < getLinha(); i++) {
             for (int j = 0; j < getColuna(); j++) {
-                setValor(i , j , null);
+                Posicao p = new Posicao();
+                p.setNavio(null);
+                setValor(i , j , p);
             }
         }
+    }
+
+    public void setValorCoordenada(int linha, int coluna, Posicao novoValor){
+        this.setValor(linha, coluna, novoValor);
     }
     
     @Override
@@ -30,7 +36,7 @@ public class PlayerBoard extends Board<Navio>{
             System.out.printf("%2d ", i + 1);         // número da linha, alinhado à direita
 
             for (int j = 0; j < getColuna(); j++) {
-                Navio navio = getValor(i, j);
+                Navio navio = this.getValor(i, j).getNavio();
 
                 char simbolo = (navio == null) ? '~' : navio.getInicial();
                 System.out.printf(" %c", simbolo);
@@ -40,17 +46,50 @@ public class PlayerBoard extends Board<Navio>{
         System.out.println();
     }
 
-    public void setCoordenadasPlayerBoard(int x, int y, Navio navio) {
-        setValor(x, y, navio);
-    }
- 
-    public void insereNoTabuleiro(HiddenBoard hiddenBoard) {
-        for (int i = 1; i < getLinha(); i++) {
-            for (int j = 1; j < getColuna(); j ++) {
-                if (hiddenBoard.getValor(i, j) == 1) {
-                    setValor(i, j, null);
+    public void imprimeTabluleiroNoJogo() {
+         /* ---------- cabeçalho (A-J, A-Z etc.) ---------- */
+        System.out.print("   ");                       // três espaços p/ alinhar com os números
+        for (int j = 0; j < getColuna(); j++) {
+            char letra = (char) ('A' + j);            // A, B, C…
+            System.out.printf(" %c", letra);
+        }
+        System.out.println();                         // quebra de linha depois do cabeçalho
+
+        /* ---------- corpo do tabuleiro ---------- */
+        for (int i = 0; i < getLinha(); i++) {
+
+            System.out.printf("%2d ", i + 1);         // número da linha, alinhado à direita
+
+            for (int j = 0; j < getColuna(); j++) {
+                boolean foiAtingido = getValor(i, j).isAtingido();
+
+                if (foiAtingido) {
+                    System.out.print(" X");
+                } else {
+                    System.out.print(" ~");
                 }
             }
+            System.out.println();
+        }
+        System.out.println();
+    }
+    
+    public void setCoordenadasPlayerBoard(int x, int y, Posicao navio) {
+        setValor(x, y, navio);
+    }
+
+    public boolean bombardear(int x, char j) {
+        int y = j - 'A';
+        Navio navio = this.getValor(x-1, y).getNavio();
+        if (navio != null) {
+            this.getValor(x-1, y).marcarComoAtingido();
+            this.getValor(x-1, y).getNavio().tomarDano();
+            System.out.println("\n!!!VOCÊ ATINGIU UMA EMBARCAÇÃO!!!\n");
+            return true;
+        } else {
+            System.out.println("\n!!ERROU!!\n");
+            this.getValor(x, y).marcarComoAtingido();
+            return false;
         }
     }
 }

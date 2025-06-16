@@ -31,5 +31,8 @@ public class Navio {
     public char getInicial(){
         return Character.toUpperCase(nome.charAt(0));
     }
-}
 
+    public void tomarDano() {
+        this.vida--;
+    }
+}
