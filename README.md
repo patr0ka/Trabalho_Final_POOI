@@ -67,13 +67,6 @@ javac src/**/*.java
 java -cp src Main
 ```
 
-## Melhorias Futuras
-
-- Implementar uma interface gráfica (GUI) usando JavaFX ou Swing.
-- Criar um modo de jogo contra IA.
-- Adicionar sons e animações.
-- Implementar sistema de pontuação e histórico de partidas.
-
 ## Autores
 - Patrick Correa
 - Pedro Castello
