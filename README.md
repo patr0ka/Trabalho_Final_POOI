@@ -1,111 +1,84 @@
-# 🚢 Jogo de Batalha Naval em Java
 
-Projeto desenvolvido como trabalho final da disciplina de **Programação Orientada a Objetos I (POOI)**. Este projeto consiste em uma implementação do clássico jogo de **Batalha Naval**, onde dois jogadores (humano vs humano) competem posicionando e atacando embarcações em um tabuleiro.
+# Batalha Naval - Projeto de Programação Orientada a Objetos (POO)
 
----
+Este é um projeto desenvolvido em Java que simula o clássico jogo **Batalha Naval**, aplicando os princípios de **Programação Orientada a Objetos (POO)**. O jogo permite que dois jogadores disputem entre si posicionando seus navios e tentando acertar os navios do oponente.
 
-## 🎯 Objetivos do Projeto
-
-- Aplicar os conceitos de Programação Orientada a Objetos I (POOI) utilizando Java.
-- Praticar princípios como:
-  - Encapsulamento
-  - Herança
-  - Polimorfismo
-  - Abstração
-- Desenvolver um jogo interativo no console.
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- 💻 Linguagem: **Java** 
-- 🏗️ Ambiente de desenvolvimento: **IntelliJ IDEA**, **Eclipse**, **VSCode** ou outro.
-- 🖥️ Execução via terminal ou pela própria IDE.
-
----
-
-## 📂 Estrutura de Diretórios
+## Estrutura do Projeto
 
 ```
+src/
+├── Main.java                 # Classe principal que executa o jogo
+├── Player.java               # Classe que representa os jogadores
+├── Embarcacoes.java          # Enum com os tipos de embarcações disponíveis
+│
+├── fleet/                    # Pacote com as classes dos navios
+│   ├── Navio.java
+│   ├── PortaAvioes.java
+│   ├── ContraTorpedeiro.java
+│   ├── Patrulheiro.java
+│   ├── Submarino.java
+│   └── Posicao.java          # Classe para representar posições no tabuleiro
+│
+├── maps/                     # Pacote responsável pelos tabuleiros
+│   ├── Board.java
+│   ├── HiddenBoard.java      # Tabuleiro oculto (não mostra navios inimigos)
+│   └── PlayerBoard.java      # Tabuleiro visível do jogador
+│
+└── playerQueues/             # Pacote que gerencia as filas de navios
+    ├── PlayersVesselQueue.java
+    └── VesselQueue.java
+```
 
-batalha-naval/
-├── src/
-│   ├── jogo/
-│   │   ├── Main.java          # Classe principal - ponto de entrada do programa
-│   │   ├── Jogo.java          # Lógica principal do jogo
-│   │   ├── Tabuleiro.java     # Representação do tabuleiro
-│   │   ├── Embarcacao.java    # Classe abstrata para embarcações
-│   │   ├── Navio.java         # Subclasse de Embarcacao (Navios específicos)
-│   │   ├── Jogador.java       # Lógica dos jogadores (Humano e Computador)
-│   │   └── Utils.java         # Métodos auxiliares (opcional)
-├── README.md
-└── ...
+## Funcionalidades
 
-````
+- Dois jogadores humanos se enfrentam em rodadas alternadas.
+- Cada jogador possui um tabuleiro próprio e um tabuleiro oculto para visualizar os disparos no adversário.
+- As embarcações disponíveis são:
+  - Porta-Aviões (5 espaços)
+  - Contra-Torpedeiro (4 espaços)
+  - Submarino (3 espaços) — 2 unidades
+  - Patrulheiro (2 espaços) — 2 unidades
+- Validação de posições para garantir que navios não sejam sobrepostos ou posicionados fora do tabuleiro.
+- Feedback visual do estado do tabuleiro:
+  - `~` para água
+  - Letra correspondente ao navio (`P` para Porta-Aviões, `C` para Contra-Torpedeiro, etc.).
+  - `X` para acerto
+  - `O` para erro (tiro na água)
+- Impressão dos tabuleiros após cada jogada.
 
----
+## Tecnologias Utilizadas
 
-## 🎮 Regras do Jogo
+- **Java 17** (ou superior recomendado)
+- Paradigma de **Programação Orientada a Objetos (POO)**
 
-* Cada jogador possui um tabuleiro onde posiciona suas embarcações.
-* As embarcações têm tamanhos variados.
-* O jogo alterna turnos entre os **Jogadores**.
-* Cada turno consiste em escolher uma coordenada para atacar.
-* O sistema informa se o ataque foi:
+## Como Executar
 
-  * 💥 **Acerto**
-  * 🌊 **Erro (água)**
-  * 🚢 **Afundou um navio**
-* O vencedor é aquele que destruir todas as embarcações do oponente primeiro.
+1. Clone ou baixe este repositório.
 
----
+2. Compile os arquivos Java:
 
-## 🔥 Funcionalidades Implementadas
+```bash
+javac src/**/*.java
+```
 
-* 📜 Menu inicial
-* 🚢 Posicionamento de navios manual ou aleatório
-* 🎯 Sistema de ataque com feedback visual (console).
-* 🔥 Marcação de acertos, erros e navios afundados no tabuleiro
-* 🔁 Opção de reiniciar o jogo após uma partida
-* 💡 Interface de texto simples e intuitiva no console
+3. Execute o jogo:
 
----
+```bash
+java -cp src Main
+```
 
-## 🧠 Conceitos de POO Aplicados
+## Melhorias Futuras
 
-* **Encapsulamento:**
+- Implementar uma interface gráfica (GUI) usando JavaFX ou Swing.
+- Criar um modo de jogo contra IA.
+- Adicionar sons e animações.
+- Implementar sistema de pontuação e histórico de partidas.
 
-  * Uso de modificadores de acesso (`private`, `public`) para proteger dados.
-* **Herança:**
-
-  * A classe abstrata `Embarcacao` é estendida por classes específicas como `Navio`.
-* **Polimorfismo:**
-
-  * Métodos sobrescritos nas subclasses para se comportarem de formas específicas dependendo do tipo de embarcação.
-* **Abstração:**
-
-  * Divisão do sistema em classes que representam claramente os elementos do jogo (Jogador, Tabuleiro, Embarcação, etc.).
-
----
-
-## 👨‍🏫 Informações Acadêmicas
-
-* 📚 Disciplina: **Programação Orientada a Objetos I**
-* 🎓 Curso: **Ciência da Computação**
-* 🏫 Instituição: **Unicentro Câmpus Cedeteg**
-* 👨‍🏫 Professor(a): **Inali Wisniewski Soares**
-* 📅 Semestre: **3º Período**
-
----
-
-## 👨‍💻 Autores
-
-* [Patrick Moraes](https://github.com/patr0ka)
-* [Ruan Pablo](https://github.com/Ruanrpm)
-* [Pedro Castello](https://github.com/phcastello)
+## Autores
+- Patrick Correa
+- Pedro Castello
+- Ruan Martins
 
 ---
 
-## 📄 Licença
-
-Este projeto é de uso acadêmico e não possui fins comerciais.
+- Projeto desenvolvido como parte da disciplina de **Programação Orientada a Objetos 1 (POO1)**.
