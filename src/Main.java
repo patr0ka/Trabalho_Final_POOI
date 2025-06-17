@@ -57,22 +57,6 @@ public class Main {
                     System.out.println("\n--- Vez de " + player2.getNome() + " ---");
                     System.out.println("  Seu tabuleiro de tiros");
                     while (acertou) { 
-                        tabuleiroDoJogador2.imprimeTabluleiroNoJogo();
-                        System.out.println("Escolha as coordenadas para atacar!!!");
-
-                        System.out.print("Linha (1-10):");
-                        int x = sc.nextInt();
-                        System.out.print("Coluna (A- J):");
-                        char y = Character.toUpperCase(sc.next().trim().charAt(0));
-
-                        acertou = tabuleiroDoJogador2.bombardear(x, y);
-                    }                
-                    jogadorDaVez = 2;                    
-                    isAtivo = false;
-                } else {
-                    System.out.println("\n--- Vez de " + player1.getNome() + " ---");
-                    System.out.println("  Seu tabuleiro de tiros");
-                    while (acertou) { 
                         tabuleiroDoJogador1.imprimeTabluleiroNoJogo();
                         System.out.println("Escolha as coordenadas para atacar!!!");
 
@@ -83,8 +67,22 @@ public class Main {
 
                         acertou = tabuleiroDoJogador1.bombardear(x, y);
                     }                
-                    jogadorDaVez = 1;                    
-                    isAtivo = false;
+                    jogadorDaVez = 1;
+                } else {
+                    System.out.println("\n--- Vez de " + player1.getNome() + " ---");
+                    System.out.println("  Seu tabuleiro de tiros");
+                    while (acertou) { 
+                        tabuleiroDoJogador2.imprimeTabluleiroNoJogo();
+                        System.out.println("Escolha as coordenadas para atacar!!!");
+
+                        System.out.print("Linha (1-10):");
+                        int x = sc.nextInt();
+                        System.out.print("Coluna (A- J):");
+                        char y = Character.toUpperCase(sc.next().trim().charAt(0));
+
+                        acertou = tabuleiroDoJogador2.bombardear(x, y);
+                    }                
+                    jogadorDaVez = 2;
                 }
             }
             
