@@ -1,3 +1,4 @@
+import Exceptions.InvalidNameException;
 import java.util.Scanner;
 import maps.*;
 
@@ -31,12 +32,16 @@ public class Main {
         try (Scanner sc = new Scanner(System.in)) {
 
             // <==== FASE DE PREPARAÇÂO ===>
-            System.out.println("<=== Insira o nome do jogador 1 ===>");
-            System.out.print("-> ");
-            player1.setNome(sc.next());
-            System.out.println("<=== Insira o nome do jogador 2 ===>");
-            System.out.print("-> ");
-            player2.setNome(sc.next());
+            try {
+                System.out.println("<=== Insira o nome do jogador 1 ===>");
+                System.out.print("-> ");
+                player1.setNome(sc.next()); //Exception sendo usado dento do metodo set.
+                System.out.println("<=== Insira o nome do jogador 2 ===>");
+                System.out.print("-> ");
+                player2.setNome(sc.next());
+            } catch(InvalidNameException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
 
             System.out.println("\n <=== " + player1.getNome() + ", selecione os locais dos navios! ===>");
             tabuleiroOculto1.insereNoTabuleiro(sc, tabuleiroDoJogador1);
