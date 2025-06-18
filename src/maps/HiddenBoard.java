@@ -1,5 +1,6 @@
 package maps;
 
+import Exceptions.InvalidCoordenadaException;
 import fleet.Navio;
 import fleet.Posicao;
 import java.util.Locale;
@@ -54,18 +55,22 @@ public class HiddenBoard extends Board<Integer> {
      * @param maxInclusive variavel que muda de acordo com o tamanho do barco para impedir posicionamentos que causariam IndexOutOfBounds.
      * @return retorna a linha escolhida -1, já que o index do vetor começa em 0.
      */
-    private int lerLinha(Scanner sc, int maxInclusive) {
+    private int lerLinha(Scanner sc, int maxInclusive) throws InvalidCoordenadaException {
         int linha = -1;
         do {
             System.out.printf(Locale.ROOT, "Linha (1-%d): ", maxInclusive);
             if (sc.hasNextInt()) {
                 linha = sc.nextInt();
+                if (linha < 1 || linha > maxInclusive) {
+                    throw new InvalidCoordenadaException("Linha inválida!");
+                }
             } else {
-                sc.next();
+                sc.next(); // descarta entrada inválida
+                throw new InvalidCoordenadaException("Valor inválido!");
             }
-        } while (linha < 1 || linha > maxInclusive);
+        } while (false); // só entra 1 vez, mantendo a lógica compacta
         return linha - 1;
-    }
+    }   
 
     /**
      * verificação de entrada que verifica o input até que se encaixe no padrão exigido.
@@ -73,14 +78,22 @@ public class HiddenBoard extends Board<Integer> {
      * @param maxInclusive variavel que muda de acordo com o tamanho do barco para impedir posicionamentos que causariam IndexOutOfBounds.
      * @return retorna a coluna escolhida.
      */
-    private int lerColuna(Scanner sc, int maxInclusive) {
+    private int lerColuna(Scanner sc, int maxInclusive) throws InvalidCoordenadaException {
         char c;
         int coluna;
         do {
             System.out.printf(Locale.ROOT, "Coluna (A-%c): ", (char) ('A' + maxInclusive - 1));
-            c = Character.toUpperCase(sc.next().trim().charAt(0));
+            String entrada = sc.next().trim().toUpperCase();
+
+            if (entrada.length() != 1 || entrada.charAt(0) < 'A' || entrada.charAt(0) >= ('A' + maxInclusive)) {
+                throw new InvalidCoordenadaException("Coluna inválida!");
+            }
+
+            c = entrada.charAt(0);
             coluna = c - 'A';
-        } while (coluna < 0 || coluna >= maxInclusive);
+
+        } while (false); // mantém estrutura do laço sem repetir
+
         return coluna;
     }
 
@@ -175,30 +188,35 @@ public class HiddenBoard extends Board<Integer> {
 
             boolean colocado = false;
             while (!colocado) {
-                if (eixo == 'H') {
-                    int linha = lerLinha(sc, BOARD_SIZE);
-                    int colIni = lerColuna(sc, BOARD_SIZE - navio.getVida() + 1);
+                try {
+                    if (eixo == 'H') {
+                        int linha = lerLinha(sc, BOARD_SIZE);
+                        int colIni = lerColuna(sc, BOARD_SIZE - navio.getVida() + 1);
 
-                    if (cabeHorizontal(linha, colIni, navio.getVida())) {
-                        colocaHorizontal(linha, colIni, barco, playerBoard);
-                        colocado = true;
-                    }
-                    else {
-                        System.out.println("Espaço insuficiente, tente outra posicao.");
-                    }
-                } else { // eixo == 'V'
-                    int coluna = lerColuna(sc, BOARD_SIZE);
-                    int linIni = lerLinha(sc, BOARD_SIZE - navio.getVida() + 1);
+                        if (cabeHorizontal(linha, colIni, navio.getVida())) {
+                            colocaHorizontal(linha, colIni, barco, playerBoard);
+                            colocado = true;
+                        }
+                        else {
+                            System.out.println("Espaço insuficiente, tente outra posicao.");
+                        }
+                    } else { // eixo == 'V'
+                        int coluna = lerColuna(sc, BOARD_SIZE);
+                        int linIni = lerLinha(sc, BOARD_SIZE - navio.getVida() + 1);
 
-                    if (cabeVertical(linIni, coluna, navio.getVida())) {
-                        colocaVertical(linIni, coluna, barco, playerBoard);
-                        colocado = true;
-                    } else {
-                        System.out.println("Espaço insuficiente, tente outra posicao.");
+                        if (cabeVertical(linIni, coluna, navio.getVida())) {
+                            colocaVertical(linIni, coluna, barco, playerBoard);
+                            colocado = true;
+                        } else {
+                            System.out.println("Espaço insuficiente, tente outra posicao.");
+                        }
                     }
-                }
+                } catch(InvalidCoordenadaException e) {
+                    System.out.println("Erro: " + e.getMessage());
+                }                
             }
             playerVessel.removeElement();
         }
+        playerBoard.imprimeTabluleiro();
     }
 }

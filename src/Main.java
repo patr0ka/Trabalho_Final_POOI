@@ -1,3 +1,4 @@
+import Exceptions.InvalidNameException;
 import java.util.Scanner;
 import maps.*;
 
@@ -31,12 +32,16 @@ public class Main {
         try (Scanner sc = new Scanner(System.in)) {
 
             // <==== FASE DE PREPARAÇÂO ===>
-            System.out.println("<=== Insira o nome do jogador 1 ===>");
-            System.out.print("-> ");
-            player1.setNome(sc.next());
-            System.out.println("<=== Insira o nome do jogador 2 ===>");
-            System.out.print("-> ");
-            player2.setNome(sc.next());
+            try {
+                System.out.println("<=== Insira o nome do jogador 1 ===>");
+                System.out.print("-> ");
+                player1.setNome(sc.next()); //Exception sendo usado dento do metodo set.
+                System.out.println("<=== Insira o nome do jogador 2 ===>");
+                System.out.print("-> ");
+                player2.setNome(sc.next());
+            } catch(InvalidNameException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
 
             System.out.println("\n <=== " + player1.getNome() + ", selecione os locais dos navios! ===>");
             tabuleiroOculto1.insereNoTabuleiro(sc, tabuleiroDoJogador1);
@@ -57,22 +62,6 @@ public class Main {
                     System.out.println("\n--- Vez de " + player2.getNome() + " ---");
                     System.out.println("  Seu tabuleiro de tiros");
                     while (acertou) { 
-                        tabuleiroDoJogador2.imprimeTabluleiroNoJogo();
-                        System.out.println("Escolha as coordenadas para atacar!!!");
-
-                        System.out.print("Linha (1-10):");
-                        int x = sc.nextInt();
-                        System.out.print("Coluna (A- J):");
-                        char y = Character.toUpperCase(sc.next().trim().charAt(0));
-
-                        acertou = tabuleiroDoJogador2.bombardear(x, y);
-                    }                
-                    jogadorDaVez = 2;                    
-                    isAtivo = false;
-                } else {
-                    System.out.println("\n--- Vez de " + player1.getNome() + " ---");
-                    System.out.println("  Seu tabuleiro de tiros");
-                    while (acertou) { 
                         tabuleiroDoJogador1.imprimeTabluleiroNoJogo();
                         System.out.println("Escolha as coordenadas para atacar!!!");
 
@@ -83,8 +72,22 @@ public class Main {
 
                         acertou = tabuleiroDoJogador1.bombardear(x, y);
                     }                
-                    jogadorDaVez = 1;                    
-                    isAtivo = false;
+                    jogadorDaVez = 1;
+                } else {
+                    System.out.println("\n--- Vez de " + player1.getNome() + " ---");
+                    System.out.println("  Seu tabuleiro de tiros");
+                    while (acertou) { 
+                        tabuleiroDoJogador2.imprimeTabluleiroNoJogo();
+                        System.out.println("Escolha as coordenadas para atacar!!!");
+
+                        System.out.print("Linha (1-10):");
+                        int x = sc.nextInt();
+                        System.out.print("Coluna (A- J):");
+                        char y = Character.toUpperCase(sc.next().trim().charAt(0));
+
+                        acertou = tabuleiroDoJogador2.bombardear(x, y);
+                    }                
+                    jogadorDaVez = 2;
                 }
             }
             

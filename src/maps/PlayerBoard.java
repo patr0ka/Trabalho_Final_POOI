@@ -91,11 +91,12 @@ public class PlayerBoard extends Board<Posicao>{
         if (navio != null) {
             this.getValor(x-1, y).marcarComoAtingido();
             this.getValor(x-1, y).getNavio().tomarDano();
+            this.getValor(x-1, y).setNavio(null);
             System.out.println("\n!!!VOCÊ ATINGIU UMA EMBARCAÇÃO!!!\n");
             return true;
         } else {
             System.out.println("\n!!ERROU!!\n");
-            this.getValor(x, y).marcarComoAtingido();
+            this.getValor(x-1, y).marcarComoAtingido();
             return false;
         }
     }

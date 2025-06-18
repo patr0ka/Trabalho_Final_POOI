@@ -1,3 +1,5 @@
+import Exceptions.InvalidNameException;
+
 public class Player{
     private String nome;
     private int pontos;
@@ -12,8 +14,12 @@ public class Player{
         return nome;
     }
 
-    public void setNome(String nome){
-        this.nome = nome;
+    public void setNome(String nome) throws InvalidNameException{
+        if (nome.trim().isEmpty()) {
+            throw new InvalidNameException("Nome do jogador não pode estar vazio.");
+        } else {
+            this.nome = nome;
+        }
     }
 
     public int getPontos(){
