@@ -3,6 +3,11 @@ package maps;
 import Exceptions.InvalidCoordenadaException;
 import fleet.Navio;
 import fleet.Posicao;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import playerQueues.PlayersVesselQueue;
@@ -145,9 +150,31 @@ public class HiddenBoard extends Board<Integer> {
         }
     }
 
+     /* ======== ARQUIVOS ======== */
+
+    @Override
+    public void saveToFile(String fileName) throws IOException {
+        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(fileName))) {
+            for (int i = 0; i < getLinha(); i++) {
+                for (int j = 0; j < getColuna(); j++)
+                    bw.write(getValor(i, j) + (j == getColuna() - 1 ? "" : " "));
+                bw.newLine();
+            }
+        }
+    }
+
+    @Override
+    public void loadFromFile(String fileName) throws IOException {
+        List<String> linhas = Files.readAllLines(Paths.get(fileName));
+        for (int i = 0; i < Math.min(linhas.size(), getLinha()); i++) {
+            String[] nums = linhas.get(i).trim().split("\\s+");
+            for (int j = 0; j < Math.min(nums.length, getColuna()); j++) {
+                setValor(i, j, Integer.parseInt(nums[j]));
+            }
+        }
+    }
+
     /* ======== MÉTODO PRINCIPAL ======== */
-
-
 
     /**
      * Sobrescreve o metodo de inserção no tabuleiro para implementar uma lógica

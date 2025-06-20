@@ -1,4 +1,5 @@
 package maps;
+import java.io.IOException;
 import java.util.Scanner;
 
 public abstract class Board<T> {
@@ -79,4 +80,8 @@ public abstract class Board<T> {
     }
 
     public void insereNoTabuleiro(Scanner sc, PlayerBoard playerBoard){};
+
+    public abstract  void saveToFile(String fileName) throws IOException;
+
+    public abstract  void loadFromFile(String fileName) throws IOException;
 }
