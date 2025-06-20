@@ -9,9 +9,10 @@ Este é um projeto desenvolvido em Java que simula o clássico jogo **Batalha Na
 src/
 ├── Main.java                 # Classe principal que executa o jogo
 ├── Player.java               # Classe que representa os jogadores
-├── Embarcacoes.java          # Enum com os tipos de embarcações disponíveis
+├──
 │
 ├── fleet/                    # Pacote com as classes dos navios
+|   |-- Embarcacoes.java          # Enum com os tipos de embarcações disponíveis
 │   ├── Navio.java
 │   ├── PortaAvioes.java
 │   ├── ContraTorpedeiro.java

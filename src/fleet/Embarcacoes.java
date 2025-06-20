@@ -1,3 +1,4 @@
+package fleet;
 public enum Embarcacoes {
     Porta_Aviao(1), Contra_Torpedeiro(1), Submarinos(2), Patrulheiros(3);
 
