@@ -72,6 +72,12 @@ public class Main {
                         char y = Character.toUpperCase(sc.next().trim().charAt(0));
 
                         acertou = tabuleiroDoJogador1.bombardear(x, y);
+                        if (acertou) {
+                            player2.setPontos();
+                        }
+                        if (player2.getPontos() == 21) {
+                            isAtivo = false;
+                        }
                     }                
                     jogadorDaVez = 1;
                 } else {
@@ -87,11 +93,20 @@ public class Main {
                         char y = Character.toUpperCase(sc.next().trim().charAt(0));
 
                         acertou = tabuleiroDoJogador2.bombardear(x, y);
+                        if (acertou) {
+                            player1.setPontos();
+                        }
+                        if (player1.getPontos() == 20) {
+                            isAtivo = false;
+                        }
                     }                
                     jogadorDaVez = 2;
                 }
             }
-            
+            if (player1.getPontos() == 20) {
+                System.out.println("O jogador: (" +player1.getNome()+ ") !!!GANHOU!!! com: (" +player1.getPontos()+"). PONTOS.");
+                System.out.println("Jogador: (" +player2.getNome()+ ") ficou com: (" +player2.getPontos()+ "). Pontos.");
+            }
         }
         catch(Exception exception){
             System.out.println("Ocorreu um erro: " + exception.getMessage());

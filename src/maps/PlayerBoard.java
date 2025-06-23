@@ -98,6 +98,10 @@ public class PlayerBoard extends Board<Posicao>{
             this.getValor(x-1, y).marcarComoAtingido();
             navio.tomarDano();
             System.out.println("\n!!!VOCÊ ATINGIU UMA EMBARCAÇÃO!!!\n");
+            if (navio.getVida() == 0) {
+                System.out.println(navio);
+                System.out.println();
+            }
             return true;
         } else {
             System.out.println("\n!!ERROU!!\n");

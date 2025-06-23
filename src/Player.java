@@ -2,7 +2,7 @@ import Exceptions.InvalidNameException;
 
 public class Player{
     private String nome;
-    private int pontos;
+    private int pontos = 0;
 
     public Player(){}
 
@@ -26,7 +26,7 @@ public class Player{
         return pontos;
     }
 
-    public void setPontos(int pontos){
-        this.pontos = pontos;
+    public void setPontos(){
+        this.pontos++;
     }
 }
