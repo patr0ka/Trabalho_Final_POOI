@@ -96,8 +96,7 @@ public class PlayerBoard extends Board<Posicao>{
         Navio navio = this.getValor(x-1, y).getNavio();
         if (navio != null) {
             this.getValor(x-1, y).marcarComoAtingido();
-            this.getValor(x-1, y).getNavio().tomarDano();
-            this.getValor(x-1, y).setNavio(null);
+            navio.tomarDano();
             System.out.println("\n!!!VOCÊ ATINGIU UMA EMBARCAÇÃO!!!\n");
             return true;
         } else {
@@ -106,6 +105,7 @@ public class PlayerBoard extends Board<Posicao>{
             return false;
         }
     }
+
 
     @Override
     public void saveToFile(String fileName) throws IOException {

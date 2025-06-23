@@ -139,14 +139,24 @@ public class HiddenBoard extends Board<Integer> {
     private void colocaHorizontal(int linha, int colIni, Posicao navio, PlayerBoard pb) {
         for (int i = 0; i < navio.getNavio().getVida(); i++) {
             setValor(linha, colIni + i, 1);
-            pb.setCoordenadasPlayerBoard(linha, colIni + i, navio);
+
+            // Corrigido: cria uma nova Posicao, mas com o mesmo Navio
+            Posicao pos = new Posicao();
+            pos.setNavio(navio.getNavio());
+
+            pb.setCoordenadasPlayerBoard(linha, colIni + i, pos);
         }
     }
 
     private void colocaVertical(int linIni, int coluna, Posicao navio, PlayerBoard pb) {
         for (int i = 0; i < navio.getNavio().getVida(); i++) {
             setValor(linIni + i, coluna, 1);
-            pb.setCoordenadasPlayerBoard(linIni + i, coluna, navio);
+
+            // Corrigido: cria uma nova Posicao, mas com o mesmo Navio
+            Posicao pos = new Posicao();
+            pos.setNavio(navio.getNavio());
+
+            pb.setCoordenadasPlayerBoard(linIni + i, coluna, pos);
         }
     }
 
